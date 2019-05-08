@@ -8,7 +8,6 @@ import java.util.List;
 public interface FinesInformationService {
     FinesInformation addFinesInformation (FinesInformation finesInformation);
     void delete(long id);
-    FinesInformation getByName(String name);
     FinesInformation editFinesInformation (FinesInformation finesInformation);
     List<FinesInformation> getAll();
 }

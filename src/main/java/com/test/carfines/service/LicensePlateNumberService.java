@@ -8,7 +8,6 @@ import java.util.List;
 public interface LicensePlateNumberService {
     LicensePlateNumber addLicensePlateNumber (LicensePlateNumber licensePlateNumber);
     void delete(long id);
-    LicensePlateNumber getByName(String name);
     LicensePlateNumber editLicensePlateNumber (LicensePlateNumber licensePlateNumber);
     List<LicensePlateNumber> getAll();
 }
