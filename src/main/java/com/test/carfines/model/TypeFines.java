@@ -11,13 +11,21 @@ import javax.persistence.*;
 public class TypeFines {
     @Id
     @Column(name = "TYPE_FINES_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "FINES_INFORMATION_ID", nullable = true)
+    @OneToOne(mappedBy = "typeFines", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private FinesInformation finesInformation;
 
     @Column(name = "TYPE_FINES_NAME")
     private String nameTypeFines;
+
+    @Column(name = "AMOUNT_DUTY" )
+    private int amountDuty;
+
+    @Override
+    public String toString() {
+       StringBuilder stringBuilder = new StringBuilder( "TypeFines = [ id"+id+", nameTypeFines = "+nameTypeFines+", "+" amountDuty = "+ amountDuty );
+        return stringBuilder.toString();
+    }
+
 }

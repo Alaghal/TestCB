@@ -11,19 +11,24 @@ import javax.persistence.*;
 @Table(name = "LICENSE_PLATE_NUMBER")
 public class LicensePlateNumber {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long licensePlateNumber_id;
+    @Column(name = "LICENSE_PLATE_NUMBER_ID")
+    private long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "FINES_INFORMATION_ID", nullable = false)
+    @OneToOne(mappedBy = "licensePlateNumber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private FinesInformation finesInformation;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "OWNERS_ID", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "CAR_MODEL_ID")
+    private CarModel carModel;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "OWNER_ID")
     private Owner owner;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CAR_BRAND_ID", nullable = false)
-    private CarBrand carBrand;
+    @Override
+    public String toString() {
+        StringBuilder  stringBuilder = new StringBuilder( "LicensePlateNumber =[ id"+id+", " +carModel+ ", "+owner+ " ]");
+        return stringBuilder.toString();
+    }
 
 }

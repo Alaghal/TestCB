@@ -12,20 +12,22 @@ import javax.persistence.*;
 public class CarModel {
     @Id
     @Column(name="CAR_MODEL_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "LICENSE_PLATE_NUMBER_ID", nullable = true)
+    @OneToOne(mappedBy = "carModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LicensePlateNumber licensePlateNumber;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "carBrand_ID", nullable = false)
+    @JoinColumn(name = "CAR_BRAND_ID")
     private CarBrand carBrand;
 
     @Column(name = "CAR_MODEL_NAME")
     private String carModelName;
 
-
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("CarModel [id=" + id + ", carModelName = " + carModelName+" ]");
+        return stringBuilder.toString();
+    }
 
 }
