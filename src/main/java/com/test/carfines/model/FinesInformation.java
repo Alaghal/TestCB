@@ -11,19 +11,20 @@ import javax.persistence.*;
 public class FinesInformation {
     @Id
     @Column(name = "FINES_INFORMATION_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "RECEIPT_PAYMENT_FINES_ID", nullable = true)
-    private ReceiptPaymentFines receiptPaymentFines;
-
-    @OneToOne(mappedBy = "finesInformation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "LICENSE_PLATE_NUMBER_ID")
     private LicensePlateNumber licensePlateNumber;
 
-    @OneToOne(mappedBy = "finesInformation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private TypeFines typeAccruedFine;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "TYPE_FINES_ID")
+    private TypeFines typeFines;
 
-
+    @Override
+    public String toString() {
+       StringBuilder stringBuilder = new StringBuilder( "FinesInformation = [ id = "+id+", " + licensePlateNumber+ ", " + typeFines +" ]" );
+       return stringBuilder.toString();
+    }
 
 }

@@ -12,13 +12,27 @@ import java.util.List;
 @Table(name = "OWNERS")
 public class Owner {
     @Id
-    @Column(name= "OWNERS_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "OWNER_ID")
     private long id;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<LicensePlateNumber> licensePlateNumber;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<LicensePlateNumber> licensePlateNumbers;
 
     @Column(name = "OWNER_NAME")
     private String nameOwner;
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder( "Owner = [ id = "+ id+", nameOwner = "+nameOwner+", licensePlateNumbers = {" );
+        for (var licensePlateNumber : licensePlateNumbers) {
+            stringBuilder.append(" "+licensePlateNumber.toString() +"," );
+        }
+
+        int lastComma =  stringBuilder.length()-1;
+        stringBuilder.deleteCharAt(lastComma );
+        stringBuilder.append(" }]");
+
+        return stringBuilder.toString();
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.test.carfines.service;
 
-import com.test.carfines.model.ReceiptPaymentFines;
 import com.test.carfines.model.TypeFines;
 
 import java.util.List;
