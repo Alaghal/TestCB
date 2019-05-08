@@ -1,6 +1,6 @@
 package com.test.carfines.service;
 
-import com.test.carfines.model.CarBrand;
+
 import com.test.carfines.model.CarModel;
 
 import java.util.List;
