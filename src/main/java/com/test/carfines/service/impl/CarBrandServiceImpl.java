@@ -1,9 +1,9 @@
 package com.test.carfines.service.impl;
 
 import com.test.carfines.model.CarBrand;
+
 import com.test.carfines.repository.CarBrandRepository;
 import com.test.carfines.service.CarBrandService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -11,33 +11,30 @@ import java.util.List;
 public class CarBrandServiceImpl implements CarBrandService {
 
     @Autowired
-    private CarBrandRepository carBrandRepository;
+    private CarBrandRepository repository;
 
     @Override
     public CarBrand addCarBrand(CarBrand carBrand) {
-        CarBrand carBrandSave = carBrandRepository.saveAndFlush( carBrand );
-
-        return carBrandSave;
+        return repository.saveAndFlush( carBrand );
     }
 
     @Override
     public void delete(long id) {
-         carBrandRepository.deleteById( id );
+         repository.deleteById( id );
     }
 
     @Override
-    public CarBrand getByName(String name) {
-        return carBrandRepository.findByName( name );
+    public CarBrand getByName(String nameCarBrand) {
+        return repository.findByName( nameCarBrand );
     }
 
     @Override
     public CarBrand editCarBrand(CarBrand carBrand) {
-        return carBrandRepository.saveAndFlush( carBrand );
+        return repository.saveAndFlush( carBrand );
     }
 
     @Override
     public List<CarBrand> getAll() {
-        List<CarBrand> brandList = carBrandRepository.findAll();
-        return brandList;
+        return repository.findAll();
     }
 }
