@@ -1,17 +1,23 @@
 package com.test.carfines.model;
 
-import lombok.Data;
-import lombok.NonNull;
 
-import javax.lang.model.element.Name;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "CAR_MODEL")
 public class CarModel {
     @Id
     @Column(name="CAR_MODEL_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToOne(mappedBy = "carModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
