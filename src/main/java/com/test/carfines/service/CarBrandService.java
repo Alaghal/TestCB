@@ -5,9 +5,9 @@ import com.test.carfines.model.CarBrand;
 import java.util.List;
 
 public interface CarBrandService {
-    CarBrand addCarBrand (CarBrand carBrand);
-    void delete(long id);
+    boolean addCarBrand (CarBrand carBrand);
+    boolean delete(long id);
     CarBrand getByName(String name);
-    CarBrand editCarBrand (CarBrand carBrand);
+    boolean editCarBrand (CarBrand carBrand);
     List<CarBrand> getAll();
 }
