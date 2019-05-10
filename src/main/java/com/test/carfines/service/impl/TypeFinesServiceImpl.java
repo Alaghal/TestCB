@@ -4,23 +4,49 @@ import com.test.carfines.model.TypeFines;
 
 import com.test.carfines.repository.TypeFinesRepository;
 import com.test.carfines.service.TypeFinesService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+@Service
+@Slf4j
 public class TypeFinesServiceImpl implements TypeFinesService {
 
-    @Autowired
-     private TypeFinesRepository repository;
+    private final TypeFinesRepository repository;
 
-    @Override
-    public TypeFines addTypeFines(TypeFines typeFines) {
-        return repository.saveAndFlush( typeFines );
+    @Autowired
+    public TypeFinesServiceImpl(TypeFinesRepository repository){
+        this.repository=repository;
     }
 
     @Override
-    public void delete(long id) {
+    public boolean addTypeFines(TypeFines typeFines) {
+        var ownerFromDB = repository.findByName( typeFines.getNameTypeFines() );
+        if (ownerFromDB != null) {
+            return false;
+        }
+        repository.saveAndFlush( typeFines );
+        log.info( "Added " + typeFines.toString() + " " + LocalDate.now() );
+        return true;
+    }
+
+    @Override
+    public boolean delete(long id) {
+        Optional<TypeFines> ownerFromDB = repository.findById( id );
+
+        if (ownerFromDB == null) {
+            return false;
+        }
+
         repository.deleteById( id );
+
+        log.info( "Delete " + ownerFromDB.toString() + " " + LocalDate.now() );
+
+        return true;
     }
 
     @Override
@@ -29,8 +55,15 @@ public class TypeFinesServiceImpl implements TypeFinesService {
     }
 
     @Override
-    public TypeFines editTypeFines(TypeFines typeFines) {
-        return repository.saveAndFlush( typeFines );
+    public boolean editTypeFines(TypeFines typeFines) {
+       Optional<TypeFines> typeFinesFromDB = repository.findById( typeFines.getId() );
+        if (typeFinesFromDB == null) {
+            return false;
+        }
+        repository.saveAndFlush( typeFines );
+        log.info( "Edit  old version = " + typeFinesFromDB.toString() + ", new version =" + typeFines.toString() + " " + LocalDate.now() );
+
+        return true;
     }
 
     @Override
