@@ -1,14 +1,15 @@
 package com.test.carfines.service;
 
-import com.test.carfines.model.FinesInformation;
+
 import com.test.carfines.model.LicensePlateNumber;
 
 import java.util.List;
 
 public interface LicensePlateNumberService {
     LicensePlateNumber addLicensePlateNumber (LicensePlateNumber licensePlateNumber);
-    void delete(long id);
-    LicensePlateNumber getByName(String name);
-    LicensePlateNumber editLicensePlateNumber (LicensePlateNumber licensePlateNumber);
+    boolean delete(long id);
+    List <LicensePlateNumber> findByIdCarModelAndIdOwner (long idCarModel, long idOwner);
+    LicensePlateNumber getLicensePlateNumberById (long id);
+    boolean editLicensePlateNumber (LicensePlateNumber licensePlateNumber);
     List<LicensePlateNumber> getAll();
 }
