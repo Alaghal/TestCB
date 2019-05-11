@@ -1,7 +1,7 @@
 package com.test.carfines.service;
 
 
-import com.test.carfines.model.LicensePlateNumber;
+import com.test.carfines.domain.LicensePlateNumber;
 
 import java.util.List;
 

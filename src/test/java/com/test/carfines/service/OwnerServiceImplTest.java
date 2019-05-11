@@ -1,7 +1,7 @@
 package com.test.carfines.service;
 
 
-import com.test.carfines.model.Owner;
+import com.test.carfines.domain.Owner;
 import com.test.carfines.repository.OwnerRepository;
 import com.test.carfines.service.impl.OwnerServiceImpl;
 import org.junit.Assert;

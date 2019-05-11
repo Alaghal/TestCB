@@ -1,7 +1,7 @@
 package com.test.carfines.service;
 
 
-import com.test.carfines.model.Owner;
+import com.test.carfines.domain.Owner;
 
 import java.util.List;
 

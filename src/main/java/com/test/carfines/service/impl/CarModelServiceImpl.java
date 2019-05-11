@@ -1,6 +1,6 @@
 package com.test.carfines.service.impl;
 
-import com.test.carfines.model.CarModel;
+import com.test.carfines.domain.CarModel;
 import com.test.carfines.repository.CarModelRepository;
 import com.test.carfines.service.CarModelService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,15 +18,15 @@ import java.util.Optional;
 public class CarModelServiceImpl implements CarModelService {
     private final CarModelRepository repository;
 
-    @Autowired
+
     public CarModelServiceImpl(CarModelRepository repository){
         this.repository=repository;
     }
 
     @Override
     public boolean addCarModel(CarModel carModel) {
-        var carModelFromDB = repository.findByName( carModel.getCarModelName() );
-        if (carModelFromDB != null) {
+        var carModelFromDB = Optional.ofNullable(repository.findByName( carModel.getCarModelName() ));
+        if (carModelFromDB.isPresent()) {
             return false;
         }
         repository.saveAndFlush( carModel );
@@ -36,7 +37,7 @@ public class CarModelServiceImpl implements CarModelService {
     @Override
     public boolean delete(long id) {
         Optional<CarModel> carModelForLog = repository.findById( id );
-        if(carModelForLog == null){
+        if(carModelForLog.isEmpty()){
             return false;
         }
         repository.deleteById( id );
@@ -54,16 +55,16 @@ public class CarModelServiceImpl implements CarModelService {
     @Override
     public boolean editCarModel(CarModel carModel) {
         Optional<CarModel> carModelFromDB = repository.findById( carModel.getId() );
-        if (carModelFromDB == null) {
+        if (carModelFromDB.isEmpty()) {
             return false;
         }
         repository.saveAndFlush( carModel );
-        log.info("Edit  old version = "+carModelFromDB.toString()+", new version ="+carModel.toString()+" "+ LocalDate.now() );
+        log.info("Edit  old version = "+carModelFromDB.get().toString()+", new version ="+carModel.toString()+" "+ LocalDate.now() );
         return true;
     }
 
     @Override
     public List<CarModel> getAll() {
-        return repository.findAll();
+        return Optional.ofNullable(repository.findAll()).orElse( new ArrayList<>( ) );
     }
 }

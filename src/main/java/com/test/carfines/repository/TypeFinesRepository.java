@@ -1,6 +1,6 @@
 package com.test.carfines.repository;
 
-import com.test.carfines.model.TypeFines;
+import com.test.carfines.domain.TypeFines;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

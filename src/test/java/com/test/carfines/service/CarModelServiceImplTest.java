@@ -1,6 +1,6 @@
 package com.test.carfines.service;
 
-import com.test.carfines.model.CarModel;
+import com.test.carfines.domain.CarModel;
 import com.test.carfines.repository.CarModelRepository;
 import org.junit.Assert;
 import org.junit.Test;
