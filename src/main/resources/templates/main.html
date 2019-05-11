@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Поисковая форма</title>
+</head>
+<body>
+    <h3>Поиск</h3>
+    <div>
+       <form th:action="@{/filter2}"  th:method="post" accept-charset="utf-8">
+           <input type="text" name="filterNameOwner" placeholder="Введите имя владельца">
+           <input type="text" name="filterLPN" placeholder="Введите госномер">
+           <button type="submit">Найти</button>
+       </form>
+    </div>
+    <div th:each="finesInformation : ${finesInformations}">
+        <b th:text="${finesInformation.id}"></b>
+        <p th:text="${finesInformation.licensePlateNumber.licensePlateNumbersName}"></p>
+        <p th:text="${finesInformation.licensePlateNumber.owner.nameOwner}"></p>
+        <p th:text="${finesInformation.licensePlateNumber.carModel.carModelName}"></p>
+        <p th:text="${finesInformation.licensePlateNumber.carModel.carBrand.carBrandName}"></p>
+        <p th:text="${finesInformation.typeFines.nameTypeFines}"></p>
+        <p th:text="${finesInformation.typeFines.amountDuty}"></p>
+    </div>
+
+    <a th:href="@{/report}" href="frequentfines.html">Report</a>
+</body>
+</html>
