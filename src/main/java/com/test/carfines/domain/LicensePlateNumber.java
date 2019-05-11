@@ -1,4 +1,4 @@
-package com.test.carfines.model;
+package com.test.carfines.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,20 +22,23 @@ public class LicensePlateNumber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "licensePlateNumber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "licensePlateNumber", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<FinesInformation> finesInformations = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CAR_MODEL_ID")
     private CarModel carModel;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "OWNER_ID")
     private Owner owner;
 
+    @Column(name = "LICENSE_PLATE_NUMBER_NAME")
+    private String licensePlateNumbersName;
+
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder( "LicensePlateNumber =[ id" + id + ", " + carModel + ", " + owner );
+        StringBuilder stringBuilder = new StringBuilder( "LicensePlateNumber =[ id" + id + ", " +licensePlateNumbersName+", "+ carModel + ", " + owner );
         stringBuilder.append( ", finesInformations ={" );
 
         if (finesInformations == null || finesInformations.isEmpty()) {

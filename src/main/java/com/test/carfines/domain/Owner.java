@@ -1,4 +1,4 @@
-package com.test.carfines.model;
+package com.test.carfines.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LicensePlateNumber> licensePlateNumbers;
 
     @Column(name = "OWNER_NAME")
