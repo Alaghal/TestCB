@@ -1,8 +1,7 @@
 package com.test.carfines.service;
 
 
-import com.test.carfines.model.FinesInformation;
-import com.test.carfines.model.LicensePlateNumber;
+import com.test.carfines.domain.LicensePlateNumber;
 import com.test.carfines.repository.LicensePlateNumberRepository;
 import com.test.carfines.service.impl.LicensePlateNumberServiceImpl;
 import org.junit.Assert;

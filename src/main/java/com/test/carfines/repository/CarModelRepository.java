@@ -1,6 +1,6 @@
 package com.test.carfines.repository;
 
-import com.test.carfines.model.CarModel;
+import com.test.carfines.domain.CarModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

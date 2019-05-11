@@ -1,7 +1,7 @@
 package com.test.carfines.service;
 
 
-import com.test.carfines.model.FinesInformation;
+import com.test.carfines.domain.FinesInformation;
 import com.test.carfines.repository.FinesInformationRepository;
 import com.test.carfines.service.impl.FinesInformationServiceImpl;
 import org.junit.Assert;

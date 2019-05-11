@@ -1,4 +1,4 @@
-package com.test.carfines.model;
+package com.test.carfines.domain;
 
 
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.test.carfines.service.impl;
 
-import com.test.carfines.model.Owner;
+import com.test.carfines.domain.Owner;
 import com.test.carfines.repository.OwnerRepository;
 import com.test.carfines.service.OwnerService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,15 +18,15 @@ public class OwnerServiceImpl implements OwnerService {
 
     private final OwnerRepository repository;
 
-    @Autowired
+
     public OwnerServiceImpl(OwnerRepository repository) {
         this.repository = repository;
     }
 
     @Override
     public boolean addOwner(Owner owner) {
-        var ownerFromDB = repository.findByName( owner.getNameOwner() );
-        if (ownerFromDB != null) {
+        var ownerFromDB = Optional.ofNullable(repository.findByName( owner.getNameOwner() ));
+        if (ownerFromDB.isPresent()) {
             return false;
         }
         repository.saveAndFlush( owner );
@@ -37,7 +38,7 @@ public class OwnerServiceImpl implements OwnerService {
     public boolean delete(long id) {
         Optional<Owner> ownerFromDB = repository.findById( id );
 
-        if (ownerFromDB == null) {
+        if (ownerFromDB.isEmpty()) {
             return false;
         }
 
@@ -50,22 +51,22 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public Owner getByName(String name) {
-        return repository.findByName( name );
+        return Optional.ofNullable(repository.findByName( name )).orElse( new Owner(  ) );
     }
 
     @Override
     public boolean editOwner(Owner owner) {
         Optional<Owner> ownerFromDB = repository.findById( owner.getId() );
-        if (ownerFromDB == null) {
+        if (ownerFromDB.isEmpty()) {
             return false;
         }
         repository.saveAndFlush( owner );
-        log.info( "Edit  old version = " + ownerFromDB.toString() + ", new version =" + owner.toString() + " " + LocalDate.now() );
+        log.info( "Edit  old version = " + ownerFromDB.get().toString() + ", new version =" + owner.toString() + " " + LocalDate.now() );
         return true;
     }
 
     @Override
     public List<Owner> getAll() {
-        return repository.findAll();
+        return Optional.ofNullable(repository.findAll()).orElse( new ArrayList<>( ) );
     }
 }

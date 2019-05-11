@@ -1,7 +1,7 @@
 package com.test.carfines.service;
 
 
-import com.test.carfines.model.TypeFines;
+import com.test.carfines.domain.TypeFines;
 import com.test.carfines.repository.TypeFinesRepository;
 import com.test.carfines.service.impl.TypeFinesServiceImpl;
 import org.junit.Assert;

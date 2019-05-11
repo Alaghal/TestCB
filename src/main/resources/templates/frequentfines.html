@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Наиболее частые штрафы</title>
+</head>
+<body>
+       <h2>Штрафы:</h2>
+       <table></table>
+      <div th:each=" fines: ${frequentFines}">
+          <p th:text="${fines.countFines}"></p>
+          <p th:text="${fines.typeFines.nameTypeFines}"></p>
+      </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.test.carfines.model;
+package com.test.carfines.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class FinesInformation {
     @JoinColumn(name = "LICENSE_PLATE_NUMBER_ID")
     private LicensePlateNumber licensePlateNumber;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "TYPE_FINES_ID")
     private TypeFines typeFines;
 

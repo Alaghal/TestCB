@@ -1,4 +1,4 @@
-package com.test.carfines.model;
+package com.test.carfines.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,8 +20,8 @@ public class TypeFines {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(mappedBy = "typeFines", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private FinesInformation finesInformation;
+    @OneToMany(mappedBy = "typeFines", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<FinesInformation> finesInformations;
 
     @Column(name = "TYPE_FINES_NAME")
     private String nameTypeFines;
@@ -31,6 +32,17 @@ public class TypeFines {
     @Override
     public String toString() {
        StringBuilder stringBuilder = new StringBuilder( "TypeFines = [ id"+id+", nameTypeFines = "+nameTypeFines+", "+" amountDuty = "+ amountDuty );
+        if (finesInformations==null || finesInformations.isEmpty()) {
+            stringBuilder.append( " }]" );
+        } else {
+            for (var finesInformation : finesInformations) {
+                stringBuilder.append( " " + finesInformation.toString() + "," );
+            }
+
+            int lastComma = stringBuilder.length() - 1;
+            stringBuilder.deleteCharAt( lastComma );
+            stringBuilder.append( " }]" );
+        }
         return stringBuilder.toString();
     }
 

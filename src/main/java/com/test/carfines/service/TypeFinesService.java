@@ -1,6 +1,6 @@
 package com.test.carfines.service;
 
-import com.test.carfines.model.TypeFines;
+import com.test.carfines.domain.TypeFines;
 
 import java.util.List;
 

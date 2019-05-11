@@ -1,6 +1,6 @@
 package com.test.carfines.repository;
 
-import com.test.carfines.model.CarBrand;
+import com.test.carfines.domain.CarBrand;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
