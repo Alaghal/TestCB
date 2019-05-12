@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="parts/common :: common_header(~{::title})">
     <meta charset="UTF-8">
     <title>Наиболее частые штрафы</title>
 </head>
 <body>
-       <h2>Штрафы:</h2>
-       <table></table>
-      <div th:each=" fines: ${frequentFines}">
-          <p th:text="${fines.countFines}"></p>
-          <p th:text="${fines.typeFines.nameTypeFines}"></p>
-      </div>
+       <h4>Штрафы:</h4>
+       <div th:if="${#lists.isEmpty(frequentFines)}">
+           <h3>Нет данных</h3>
+       </div>
+       <table class="fines" th:unless="${#lists.isEmpty(frequentFines)}">
+           <thead>
+           <tr>
+               <th>Число штрафов</th>
+               <th>Тип штрафа</th>
+           </tr>
+           </thead>
+           <tbody>
+           <tr th:each=" fines: ${frequentFines}">
+               <td th:text="${fines.countFines}"></td>
+               <td th:text="${fines.typeFines.nameTypeFines}"></td>
+           </tr>
+           </tbody>
+       </table>
+
+       <a th:href="@{/}" href="main.html">К списку штрафов</a>
 </body>
 </html>
