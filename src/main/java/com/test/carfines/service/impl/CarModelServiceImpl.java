@@ -36,7 +36,7 @@ public class CarModelServiceImpl implements CarModelService {
 
     @Override
     public boolean delete(long id) {
-        Optional<CarModel> carModelForLog = repository.findById( id );
+        var carModelForLog = Optional.ofNullable(  repository.findById( id ));
         if(carModelForLog.isEmpty()){
             return false;
         }
@@ -54,7 +54,7 @@ public class CarModelServiceImpl implements CarModelService {
 
     @Override
     public boolean editCarModel(CarModel carModel) {
-        Optional<CarModel> carModelFromDB = repository.findById( carModel.getId() );
+        var carModelFromDB = Optional.ofNullable(  repository.findById( carModel.getId() ));
         if (carModelFromDB.isEmpty()) {
             return false;
         }

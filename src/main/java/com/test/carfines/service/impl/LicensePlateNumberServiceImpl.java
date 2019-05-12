@@ -34,7 +34,7 @@ public class LicensePlateNumberServiceImpl implements LicensePlateNumberService 
 
     @Override
     public boolean delete(long id) {
-        Optional<LicensePlateNumber> licensePlateNumberFromDB = repository.findById( id );
+       var licensePlateNumberFromDB = Optional.ofNullable(  repository.findById( id ));
 
         if (licensePlateNumberFromDB.isEmpty()) {
             return false;
@@ -59,7 +59,7 @@ public class LicensePlateNumberServiceImpl implements LicensePlateNumberService 
 
     @Override
     public boolean editLicensePlateNumber(LicensePlateNumber licensePlateNumber) {
-        var licensePlateNumberFromDB = repository.findById( licensePlateNumber.getId() );
+        var licensePlateNumberFromDB =  Optional.ofNullable( repository.findById( licensePlateNumber.getId() ));
         if (licensePlateNumberFromDB.isEmpty()) {
             return false;
         }

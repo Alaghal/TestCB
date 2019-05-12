@@ -31,6 +31,12 @@ public class CarBrandServiceImplTest {
     public void addCarBrandTest() {
         CarBrand carBrand = new CarBrand();
 
+        carBrand.setCarBrandName( "SuperBrand" );
+
+        Mockito.doReturn( null )
+                .when( repository )
+                .findByName( "SuperBrand" );
+
         boolean isCarBrandCreated = service.addCarBrand( carBrand );
 
         Assert.assertTrue( isCarBrandCreated );
