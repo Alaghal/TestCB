@@ -37,7 +37,7 @@ public class FinesInformationServiceImpl implements FinesInformationService {
 
     @Override
     public boolean delete(long id) {
-        Optional<FinesInformation> finesInformationFromDB = repository.findById( id );
+        var finesInformationFromDB =Optional.ofNullable( repository.findById( id ));
 
         if (finesInformationFromDB.isEmpty()) {
             return false;
@@ -58,7 +58,7 @@ public class FinesInformationServiceImpl implements FinesInformationService {
 
     @Override
     public boolean editFinesInformation(FinesInformation finesInformation) {
-        Optional<FinesInformation> finesInformationFromDB = repository.findById( finesInformation.getId() );
+       var finesInformationFromDB = Optional.ofNullable(   repository.findById( finesInformation.getId() ));
         if (finesInformationFromDB.isEmpty()) {
             return false;
         }
@@ -76,15 +76,15 @@ public class FinesInformationServiceImpl implements FinesInformationService {
 
     @Override
     public List<FinesInformation> getFinesInformation(String ownerName, String licensePlateNumberName) {
-        if(!ownerName.isEmpty() && !licensePlateNumberName.isEmpty()){
+        if(ownerName != null && licensePlateNumberName !=null){
             return Optional.ofNullable( repository.findFinesInformationByLPNAndOwnerName( ownerName,licensePlateNumberName ) ).orElse( new ArrayList<>(  ));
         }
 
-        if(!ownerName.isEmpty()){
+        if(ownerName !=null){
             return Optional.ofNullable(repository.findFinesInformationByOwnerName( ownerName ) ).orElse( new ArrayList<>(  ));
         }
 
-        if(!licensePlateNumberName.isEmpty()){
+        if(licensePlateNumberName !=null){
             return Optional.ofNullable( repository.findFinesInformationByLicensePlateNumbersName(licensePlateNumberName ) ).orElse( new ArrayList<>(  ) );
         }
 

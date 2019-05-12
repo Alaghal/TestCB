@@ -37,7 +37,7 @@ public class TypeFinesServiceImpl implements TypeFinesService {
 
     @Override
     public boolean delete(long id) {
-        Optional<TypeFines> ownerFromDB = repository.findById( id );
+        var ownerFromDB = Optional.ofNullable( repository.findById( id ));
 
         if (ownerFromDB.isEmpty()) {
             return false;
@@ -57,7 +57,7 @@ public class TypeFinesServiceImpl implements TypeFinesService {
 
     @Override
     public boolean editTypeFines(TypeFines typeFines) {
-       Optional<TypeFines> typeFinesFromDB = repository.findById( typeFines.getId() );
+       var typeFinesFromDB = Optional.ofNullable( repository.findById( typeFines.getId() ));
         if (typeFinesFromDB.isEmpty()) {
             return false;
         }

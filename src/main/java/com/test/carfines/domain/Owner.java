@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -24,6 +26,7 @@ public class Owner {
     private List<LicensePlateNumber> licensePlateNumbers;
 
     @Column(name = "OWNER_NAME")
+    @Pattern(regexp = "^[A-Za-z\\s]{0,45}$|^[А-Яа-я\\s]{0,45}$",message = "Имя не должно содержать цифр и спец символов")
     private String nameOwner;
 
     @Override

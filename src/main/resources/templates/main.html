@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head th:replace="parts/common :: common_header(~{::title})">
     <title>Поисковая форма</title>
 </head>
 <body>
     <h3>Поиск</h3>
     <div>
-       <form th:action="@{/filter2}"  th:method="post" accept-charset="utf-8">
-           <input type="text" name="filterNameOwner" placeholder="Введите имя владельца">
-           <input type="text" name="filterLPN" placeholder="Введите госномер">
-           <button type="submit">Найти</button>
+        <form th:action="@{/filter}"  th:method="post" accept-charset="utf-8">
+            <input type="search" th:value="${owner.nameOwner}" name="nameOwner" placeholder="Введите имя владельца">
+            <div th:if="${nameOwnerError}">
+                <span th:text="${nameOwnerError}" class="tooltiptext">Tooltip text</span>
+            </div>
+            <input type="search" th:value="${licensePlateNumber.licensePlateNumbersName}"   name="licensePlateNumbersName" placeholder="Введите госномер">
+            <div th:if="${licensePlateNumbersNameError}">
+                <span th:text="${licensePlateNumbersNameError}" class="tooltiptext">Tooltip text</span>
+            </div>
+            <button type="submit">Найти</button>
        </form>
     </div>
-    <div th:each="finesInformation : ${finesInformations}">
-        <b th:text="${finesInformation.id}"></b>
-        <p th:text="${finesInformation.licensePlateNumber.licensePlateNumbersName}"></p>
-        <p th:text="${finesInformation.licensePlateNumber.owner.nameOwner}"></p>
-        <p th:text="${finesInformation.licensePlateNumber.carModel.carModelName}"></p>
-        <p th:text="${finesInformation.licensePlateNumber.carModel.carBrand.carBrandName}"></p>
-        <p th:text="${finesInformation.typeFines.nameTypeFines}"></p>
-        <p th:text="${finesInformation.typeFines.amountDuty}"></p>
+    <div th:if="${#lists.isEmpty(finesInformations)}">
+        <h3>Нет данных по запросу </h3>
     </div>
+    <table class="fines" th:unless="${#lists.isEmpty(finesInformations)}">
+        <thead>
+        <tr>
+            <th>Госномер</th>
+            <th>Владелиц</th>
+            <th>Модель</th>
+            <th>Бренд</th>
+            <th>Тип штрафа</th>
+            <th>Пошлина</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="finesInformation : ${finesInformations}">
+            <td th:text="${finesInformation.licensePlateNumber.licensePlateNumbersName}"></td>
+            <td th:text="${finesInformation.licensePlateNumber.owner.nameOwner}"></td>
+            <td th:text="${finesInformation.licensePlateNumber.carModel.carModelName}"></td>
+            <td th:text="${finesInformation.licensePlateNumber.carModel.carBrand.carBrandName}"></td>
+            <td th:text="${finesInformation.typeFines.nameTypeFines}"></td>
+            <td th:text="${finesInformation.typeFines.amountDuty}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-    <a th:href="@{/report}" href="frequentfines.html">Report</a>
+
+
+    <a th:href="@{/report}" href="frequentfines.html">Отчет</a>
+
+<th:block th:include="parts/common :: common_script"></th:block>
 </body>
 </html>

@@ -36,7 +36,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public boolean delete(long id) {
-        Optional<Owner> ownerFromDB = repository.findById( id );
+        var ownerFromDB = Optional.ofNullable( repository.findById( id ));
 
         if (ownerFromDB.isEmpty()) {
             return false;
@@ -56,7 +56,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public boolean editOwner(Owner owner) {
-        Optional<Owner> ownerFromDB = repository.findById( owner.getId() );
+        var ownerFromDB = Optional.ofNullable( repository.findById( owner.getId() ));
         if (ownerFromDB.isEmpty()) {
             return false;
         }

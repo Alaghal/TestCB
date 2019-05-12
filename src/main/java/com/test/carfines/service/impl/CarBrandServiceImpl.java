@@ -38,7 +38,7 @@ public class CarBrandServiceImpl implements CarBrandService {
     public boolean delete(long id) {
         Optional<CarBrand> carBrandFromDB = repository.findById( id );
 
-        if(carBrandFromDB.isEmpty()){
+        if(carBrandFromDB == null){
             return false;
         }
 
@@ -57,7 +57,7 @@ public class CarBrandServiceImpl implements CarBrandService {
     @Override
     public boolean editCarBrand(CarBrand carBrand) {
         Optional<CarBrand> carBrandFromDB = repository.findById( carBrand.getId() );
-        if (carBrandFromDB.isEmpty()) {
+        if (carBrandFromDB == null) {
             return false;
         }
         repository.saveAndFlush( carBrand );

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class LicensePlateNumber {
     @JoinColumn(name = "OWNER_ID")
     private Owner owner;
 
+    @Pattern(regexp = "^[A-Z0-9]{0,9}$|^[А-Я0-9]{0,9}$",message = "Только буквы вырхнего регистра, цифры , длина номера < 9 символов")
     @Column(name = "LICENSE_PLATE_NUMBER_NAME")
     private String licensePlateNumbersName;
 
